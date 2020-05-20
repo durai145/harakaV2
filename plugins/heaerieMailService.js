@@ -5,6 +5,8 @@
 // Put your plugin code here
 // type: `haraka -h Plugins` for documentation on how to create a plugin
 
+var uuid4=require("uuid").v4
+
 var util = require('util'),
 	Transform = require('stream').Transform;
 var fs = require('fs');
@@ -18,19 +20,14 @@ exports.register = function () {
 	this.register_hook('rcpt_ok', 'hook_rcpt_ok', 'hook_queue', 'hook_data_post');
 };
 
-var hook_queue = function (next, connection) {
+var hook_queue_01 = function (next, connection) {
 	this.logdebug("before sync HQ:001 ###");
 	var plugin = this;
 	connection.transaction.parse_body = true;
 	this.logdebug("hook_queue");
 	var transaction = connection.transaction;
 	var emailTo = transaction.rcpt_to;
-	var isValidUserRequest ={"outboundMailRequest":{
-			"headers":{"emailId":"H1450002"}
-			,"headers_decoded":{"emailId":"H1450002"}
-			,"header_list":{"emailId":"H1450002"}
-			,"body": []
-	}};
+	var isValidUserRequest ={};
 	isValidUserRequest.outboundMailRequest.body.push(prepareBody(transaction.body));
 	this.logdebug("call encryptBodyList A:001");
 	var inpList=JSON.parse(JSON.stringify(isValidUserRequest.outboundMailRequest.body));	
@@ -62,16 +59,15 @@ var hook_queue = function (next, connection) {
 			
 			var isValidUserRequestUrl = JSON.stringify(isValidUserRequest);
 
-			var body = {"grantType":"password","clientId":"CLIENTSP","scope":"GPA","outboundMailRequest": isValidUserRequest};
+			var body = {};
 			var respObj= {};
 
-			var opt = { method: 'POST', 
-			//TODO: hostname should be read from config.json
+			var opt = { method: 'PUT', 
 					uri: 'http://localhost:5000/service/mail/outboundMail', 
 					form: body,
 					headers: respObj
 			};
-			file.writeJson("/home/ubuntu/bin/" + "request.json", JSON.stringify(opt));
+			file.writeJson("/root/" + "request.json", JSON.stringify(opt));
 			logdebug("EBL:S:001.008" + JSON.stringify(opt));
 			
 			logdebug("EBL:S:002");
@@ -92,12 +88,51 @@ var hook_queue = function (next, connection) {
 	});
 };
 
+var hook_queue = function (next, connection) {
+	this.logdebug("before sync HQ:001 ###");
+	var plugin = this;
+	connection.transaction.parse_body = true;
+	this.logdebug("hook_queue");
+	var transaction = connection.transaction;
+	var emailTo = transaction.rcpt_to;
+	var isValidUserRequest ={};
+
+	var bodyReq = {"id" : uuid4() ,
+			"request"  : prepareBody(transaction.body) ,
+		 "status" : "PENDING"
+	}
+	var respObj= {};
+
+	var opt = { method: 'POST', 
+			uri: 'http://localhost:8080/pillar/mail/create', 
+			body: bodyReq,
+			headers: respObj,
+			json: true
+	};
+	file.writeJson("/root/" + bodyReq.id + ".json", opt);
+	file.writeJson("/root/" + "req-" + bodyReq.id + ".json" , prepareBody(transaction.body));
+	this.logdebug("EBL:S:001.008" + JSON.stringify(opt));
+	
+	this.logdebug("EBL:S:002");
+	store.saveToLocal(JSON.stringify(opt));
+	httpreq.httpRequest(opt, this.logdebug, next,  function(err, log, next, resp) {
+	log("HR:S:003");
+		if (err) {
+			log("HR:S:004");
+			return next(OK, "Heaerie Email Accepted.");
+		}
+		log("HR:S:004");
+//		TODO: Need to customize the message by  domain
+		return next(OK, "Heaerie Email Accepted.");
+	});
+
+};
 exports.hook_rcpt_ok = function (next, connections, params) {
 	this.logdebug(connections);
 	this.logdebug(params);
 	this.logdebug("params.original =[" + params.original +"]");
 	
-     this.is_user_valid(params.user, function (isValid) {
+     this.is_user_valid(params.user,this.logdebug, next, function (isValid) {
 		if (isValid) {
 				next(OK);
 		} else {
@@ -109,48 +144,23 @@ exports.hook_rcpt_ok = function (next, connections, params) {
  * heaerie V2 changes , schema definition is changed.
  * 
  * */
-exports.is_user_valid = function (user, callback) {
+exports.is_user_valid = function (user, log,  callback) {
         var plugin = this;
         var plugin = this;
-        var isValidUserRequest ={"isValidUserRequest":{"userDetails":{"emailId": user}, "portalDetails":{"portalKey":"Member Portal"}}};
-        var body = {"grantType":"password","clientId":"CLIENTSP","scope":"GPA","isValidUserRequest": isValidUserRequest }
         var respObj= {};
+	var url="http://localhost:8080/pillar/user/?usr_id=" + user  + "&domain=heaerieglobalsolutions.com"
         var opt = {
-                                method: 'POST',
-                                uri: 'http://localhost:5000/service/userDetails/isValidUser',
-                                form: body,
+                                method: 'GET',
+                                uri: url,
                                 headers: respObj
                         };
-        httpreq.httpRequest(opt, function(err, resp) {
+        httpreq.httpRequest(opt, log, callback, function(err, log, next, resp) {
                 if (err) {
-                        return  callback(true);
+                        return  next(false);
                 }
-                return  callback(true);
+                return  next(true);
         });
 };
-/*
-exports.is_user_valid = function (user, callback) {
-	var plugin = this;
-	var plugin = this;
-	var isValidUserRequest =[{"isValidUserRequest":[{"userDetails":[{"emailId":"H1450001"}], "portalDetails":[{"portalKey":"Member Portal"}]}]}];
-	var body = {"grantType":"password","clientId":"CLIENTSP","scope":"GPA","isValidUserRequest":"[{\"isValidUserRequest\":[{\"userDetails\":[{\"emailId\":\""+ user + "\"}], \"portalDetails\":[{\"portalKey\":\"Member Portal\"}]}]}];"}
-	var respObj= {};
-	var opt = {
-				method: 'POST',
-				uri: 'http://localhost:5000/service/userDetails/isValidUser',
-				form: body,
-				headers: respObj
-			};
-
-	httpreq.httpRequest(opt, function(err, resp) {
-		if (err) {
-			return	callback(false);	
-		}
-		return	callback(true);	
-	});
-
-};
-*/
 
 exports.hook_data_post = function (next, connection) {
     this.loginfo("!!!heaerieMailService.hook_data_post");
