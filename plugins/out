@@ -1,0 +1,60 @@
+{
+    "id": "928d540d-1771-472a-bdc7-a9d9978009a3",
+    "status": "INPROGRESS"
+}
+{ method: 'POST',
+  uri: 'http://localhost:8080/pillar/mail/create',
+  form:
+   { id: '8ecd480b-fbd3-4381-b6c8-4b8c3981cdd9',
+     request:
+      { header: [Object],
+        header_lines: [],
+        is_htmal: false,
+        options: {},
+        filters: [],
+        bodytext: '',
+        body_encoding: 'UTF-8',
+        boundary:
+         '_000_HK2PR06MB3444625B081C5CB317ADDF449EB80HK2PR06MB3444apcp_',
+        ct:
+         'multipart/alternative;\tboundary="_000_HK2PR06MB3444625B081C5CB317ADDF449EB80HK2PR06MB3444apcp_"',
+        childern: [Array],
+        state: 'end' },
+     status: 'INPROGRESS' },
+  headers: {} }
+call resp:[{
+    "statusCode": 500,
+    "body": "<!doctype html><html lang=\"en\"><head><title>HTTP Status 500 – Internal Server Error</title><style type=\"text/css\">h1 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:22px;} h2 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:16px;} h3 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:14px;} body {font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;} b {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;} p {font-family:Tahoma,Arial,sans-serif;background:white;color:black;font-size:12px;} a {color:black;} a.name {color:black;} .line {height:1px;background-color:#525D76;border:none;}</style></head><body><h1>HTTP Status 500 – Internal Server Error</h1><hr class=\"line\" /><p><b>Type</b> Exception Report</p><p><b>Message</b> com.google.gson.JsonSyntaxException: java.lang.IllegalStateException: Expected BEGIN_OBJECT but was STRING at line 1 column 1 path $</p><p><b>Description</b> The server encountered an unexpected condition that prevented it from fulfilling the request.</p><p><b>Exception</b></p><pre>javax.servlet.ServletException: com.google.gson.JsonSyntaxException: java.lang.IllegalStateException: Expected BEGIN_OBJECT but was STRING at line 1 column 1 path $\n\torg.glassfish.jersey.servlet.WebComponent.service(WebComponent.java:392)\n\torg.glassfish.jersey.servlet.ServletContainer.service(ServletContainer.java:381)\n\torg.glassfish.jersey.servlet.ServletContainer.service(ServletContainer.java:344)\n\torg.glassfish.jersey.servlet.ServletContainer.service(ServletContainer.java:219)\n\torg.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)\n\torg.apache.logging.log4j.web.Log4jServletFilter.doFilter(Log4jServletFilter.java:71)\n</pre><p><b>Root Cause</b></p><pre>com.google.gson.JsonSyntaxException: java.lang.IllegalStateException: Expected BEGIN_OBJECT but was STRING at line 1 column 1 path $\n\tcom.google.gson.internal.bind.ReflectiveTypeAdapterFactory$Adapter.read(ReflectiveTypeAdapterFactory.java:226)\n\tcom.google.gson.Gson.fromJson(Gson.java:927)\n\tcom.google.gson.Gson.fromJson(Gson.java:892)\n\tcom.google.gson.Gson.fromJson(Gson.java:841)\n\tcom.google.gson.Gson.fromJson(Gson.java:813)\n\tcom.heaerie.pillar.controller.MailController.create(MailController.java:86)\n\tjava.base&#47;jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tjava.base&#47;jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n\tjava.base&#47;jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tjava.base&#47;java.lang.reflect.Method.invoke(Method.java:566)\n\torg.glassfish.jersey.server.model.internal.ResourceMethodInvocationHandlerFactory$1.invoke(ResourceMethodInvocationHandlerFactory.java:81)\n\torg.glassfish.jersey.server.model.internal.AbstractJavaResourceMethodDispatcher$1.run(AbstractJavaResourceMethodDispatcher.java:151)\n\torg.glassfish.jersey.server.model.internal.AbstractJavaResourceMethodDispatcher.invoke(AbstractJavaResourceMethodDispatcher.java:171)\n\torg.glassfish.jersey.server.model.internal.JavaResourceMethodDispatcherProvider$ResponseOutInvoker.doDispatch(JavaResourceMethodDispatcherProvider.java:152)\n\torg.glassfish.jersey.server.model.internal.AbstractJavaResourceMethodDispatcher.dispatch(AbstractJavaResourceMethodDispatcher.java:104)\n\torg.glassfish.jersey.server.model.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:406)\n\torg.glassfish.jersey.server.model.ResourceMethodInvoker.apply(ResourceMethodInvoker.java:350)\n\torg.glassfish.jersey.server.model.ResourceMethodInvoker.apply(ResourceMethodInvoker.java:106)\n\torg.glassfish.jersey.server.ServerRuntime$1.run(ServerRuntime.java:259)\n\torg.glassfish.jersey.internal.Errors$1.call(Errors.java:271)\n\torg.glassfish.jersey.internal.Errors$1.call(Errors.java:267)\n\torg.glassfish.jersey.internal.Errors.process(Errors.java:315)\n\torg.glassfish.jersey.internal.Errors.process(Errors.java:297)\n\torg.glassfish.jersey.internal.Errors.process(Errors.java:267)\n\torg.glassfish.jersey.process.internal.RequestScope.runInScope(RequestScope.java:320)\n\torg.glassfish.jersey.server.ServerRuntime.process(ServerRuntime.java:236)\n\torg.glassfish.jersey.server.ApplicationHandler.handle(ApplicationHandler.java:1028)\n\torg.glassfish.jersey.servlet.WebComponent.service(WebComponent.java:373)\n\torg.glassfish.jersey.servlet.ServletContainer.service(ServletContainer.java:381)\n\torg.glassfish.jersey.servlet.ServletContainer.service(ServletContainer.java:344)\n\torg.glassfish.jersey.servlet.ServletContainer.service(ServletContainer.java:219)\n\torg.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)\n\torg.apache.logging.log4j.web.Log4jServletFilter.doFilter(Log4jServletFilter.java:71)\n</pre><p><b>Root Cause</b></p><pre>java.lang.IllegalStateException: Expected BEGIN_OBJECT but was STRING at line 1 column 1 path $\n\tcom.google.gson.stream.JsonReader.beginObject(JsonReader.java:385)\n\tcom.google.gson.internal.bind.ReflectiveTypeAdapterFactory$Adapter.read(ReflectiveTypeAdapterFactory.java:215)\n\tcom.google.gson.Gson.fromJson(Gson.java:927)\n\tcom.google.gson.Gson.fromJson(Gson.java:892)\n\tcom.google.gson.Gson.fromJson(Gson.java:841)\n\tcom.google.gson.Gson.fromJson(Gson.java:813)\n\tcom.heaerie.pillar.controller.MailController.create(MailController.java:86)\n\tjava.base&#47;jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tjava.base&#47;jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n\tjava.base&#47;jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tjava.base&#47;java.lang.reflect.Method.invoke(Method.java:566)\n\torg.glassfish.jersey.server.model.internal.ResourceMethodInvocationHandlerFactory$1.invoke(ResourceMethodInvocationHandlerFactory.java:81)\n\torg.glassfish.jersey.server.model.internal.AbstractJavaResourceMethodDispatcher$1.run(AbstractJavaResourceMethodDispatcher.java:151)\n\torg.glassfish.jersey.server.model.internal.AbstractJavaResourceMethodDispatcher.invoke(AbstractJavaResourceMethodDispatcher.java:171)\n\torg.glassfish.jersey.server.model.internal.JavaResourceMethodDispatcherProvider$ResponseOutInvoker.doDispatch(JavaResourceMethodDispatcherProvider.java:152)\n\torg.glassfish.jersey.server.model.internal.AbstractJavaResourceMethodDispatcher.dispatch(AbstractJavaResourceMethodDispatcher.java:104)\n\torg.glassfish.jersey.server.model.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:406)\n\torg.glassfish.jersey.server.model.ResourceMethodInvoker.apply(ResourceMethodInvoker.java:350)\n\torg.glassfish.jersey.server.model.ResourceMethodInvoker.apply(ResourceMethodInvoker.java:106)\n\torg.glassfish.jersey.server.ServerRuntime$1.run(ServerRuntime.java:259)\n\torg.glassfish.jersey.internal.Errors$1.call(Errors.java:271)\n\torg.glassfish.jersey.internal.Errors$1.call(Errors.java:267)\n\torg.glassfish.jersey.internal.Errors.process(Errors.java:315)\n\torg.glassfish.jersey.internal.Errors.process(Errors.java:297)\n\torg.glassfish.jersey.internal.Errors.process(Errors.java:267)\n\torg.glassfish.jersey.process.internal.RequestScope.runInScope(RequestScope.java:320)\n\torg.glassfish.jersey.server.ServerRuntime.process(ServerRuntime.java:236)\n\torg.glassfish.jersey.server.ApplicationHandler.handle(ApplicationHandler.java:1028)\n\torg.glassfish.jersey.servlet.WebComponent.service(WebComponent.java:373)\n\torg.glassfish.jersey.servlet.ServletContainer.service(ServletContainer.java:381)\n\torg.glassfish.jersey.servlet.ServletContainer.service(ServletContainer.java:344)\n\torg.glassfish.jersey.servlet.ServletContainer.service(ServletContainer.java:219)\n\torg.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)\n\torg.apache.logging.log4j.web.Log4jServletFilter.doFilter(Log4jServletFilter.java:71)\n</pre><p><b>Note</b> The full stack trace of the root cause is available in the server logs.</p><hr class=\"line\" /><h3>Apache Tomcat/9.0.24 (Ubuntu)</h3></body></html>",
+    "headers": {
+        "content-type": "text/html;charset=utf-8",
+        "content-language": "en",
+        "content-length": "8004",
+        "date": "Mon, 18 May 2020 02:33:24 GMT",
+        "connection": "close"
+    },
+    "request": {
+        "uri": {
+            "protocol": "http:",
+            "slashes": true,
+            "auth": null,
+            "host": "localhost:8080",
+            "port": "8080",
+            "hostname": "localhost",
+            "hash": null,
+            "search": null,
+            "query": null,
+            "pathname": "/pillar/mail/create",
+            "path": "/pillar/mail/create",
+            "href": "http://localhost:8080/pillar/mail/create"
+        },
+        "method": "POST",
+        "headers": {
+            "content-type": "application/x-www-form-urlencoded",
+            "content-length": 24716
+        }
+    }
+}]
+HR:S:003
+HR:S:004
+OK
+Heaerie Email Accepted.

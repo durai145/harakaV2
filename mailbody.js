@@ -500,3 +500,30 @@ function insert_banner (ct, enc, buf, banners) {
 
     return new_buf;
 }
+
+
+function convertToJson(childern) {
+	var rtJson = [];
+	childern.forEach(function (body) {
+		rtJson.push(body.toJson());
+	});
+	return rtJson;
+}
+
+Body.prototype.toJson = function () {
+	return  {
+	  "header" : this.header ,
+	  "header_lines" : this.header_lines,
+	  "is_html" : this.is_html,
+	  "options" : this.options,
+	  "filters" : this.filters,
+	  "bodytext" : this.bodytext ,
+	  //"body_text_encoded" : this.body_text_encoded,
+	  "body_encoding" : this.body_encoding,
+	  "boundary" : this.boundary,
+	  "ct" : this.ct,
+	  //"decode_function" : this.decode_function ,
+	  "children" : convertToJson(this.children),
+	  "state" : this.state
+	}
+}
