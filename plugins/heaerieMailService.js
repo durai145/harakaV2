@@ -104,7 +104,7 @@ var hook_queue = function (next, connection) {
 	var respObj= {};
 
 	var opt = { method: 'POST', 
-			uri: 'http://localhost:8080/pillar/mail/create', 
+			uri: 'http://localhost:8080/pillar/api/mail/create', 
 			body: bodyReq,
 			headers: respObj,
 			json: true
@@ -148,7 +148,7 @@ exports.is_user_valid = function (user, log,  callback) {
         var plugin = this;
         var plugin = this;
         var respObj= {};
-	var url="http://localhost:8080/pillar/user/?usr_id=" + user  + "&domain=heaerieglobalsolutions.com"
+	var url="http://localhost:8080/pillar/api/user/?usr_id=" + user  + "&domain=heaerieglobalsolutions.com"
         var opt = {
                                 method: 'GET',
                                 uri: url,
